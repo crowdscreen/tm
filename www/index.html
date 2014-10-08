@@ -64,25 +64,12 @@
       //
       smallImage.src = "data:image/jpeg;base64," + imageData;
       
-      document.frmupload.imageInput.value = smallImage.src;
+      document.tweetmirror.image.value = smallImage.src;
 
-//	   jQuery('#imageUploadForm').on('submit',(function(e) {
-   // e.preventDefault()
-    /*$.post({
-        type:'POST',
-        url: 'http://apps.crowdscreen.com/tweetmirror/upload.php',
-       // data:jQuery(form#formID).serialize(),
-       	data: smallImage.src,
-       	success: function(){
-		   	alert('success');
-		},
-		error: function(){
-			alert('failure');
-		},
-        cache:false
-    });*/
+	  document.tweetmirror.submit();
+	
 	alert('Did not try sending to Steve!');
-
+	
 //}));
 
       
@@ -112,7 +99,7 @@
     //
     function capturePhoto() {
       // Take picture using device camera and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { cameraDirection: 1, quality: 50,
         destinationType: destinationType.DATA_URL });
     }
 
@@ -145,18 +132,22 @@
     </head>
     <body>
         <div class="app">
-            <h1>Tweet Mirror V0.1</h1>
+            <h1>Tweet Mirror V0.2</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
             </div>
-			<button onclick="capturePhoto();">Capture Photo</button> <br>
+			<button style="padding:20px;margin:20px;background:#ff00ae;color:#000000;font-size:2em;" onclick="capturePhoto();">Capture Photo</button> <br>
 			<button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
 			<button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
 			<button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
-			<img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+			<img style="display:none;width:100px;height:100px;" id="smallImage" src="" />
 			<img style="display:none;" id="largeImage" src="" />
-			
+			<form action="http://apps.crowdscreen.com/tweetmirror/upload.php" method="POST" name="tweetmirror" id="tweetmirror">
+				<input type="hidden" name="sending" value="sending" />
+				<input type="hidden" name="image" value="blank" />
+				<input type="hidden" name="sent" value="sent" />
+			</form>
         </div>
         
         
