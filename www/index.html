@@ -93,14 +93,15 @@
       // The inline CSS rules are used to resize the image
       //
       largeImage.src = imageURI;
+      uploadPhoto(imageURI);
     }
 
     // A button will call this function
     //
     function capturePhoto() {
       // Take picture using device camera and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { cameraDirection: 1, quality: 50,
-        destinationType: destinationType.DATA_URL });
+      navigator.camera.getPicture(onPhotoURISuccess, onFail, { cameraDirection: 1, quality: 50,
+        destinationType: destinationType.FILE_URI });
     }
 
     // A button will call this function
@@ -125,6 +126,38 @@
     function onFail(message) {
       alert('Failed because: ' + message);
     }
+    
+    
+    
+    /* TRYING TO UPLOAD PHOTO */
+    
+    function uploadPhoto(imageURI) {
+            var options = new FileUploadOptions();
+            options.fileKey="file";
+            options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+            options.mimeType="image/jpeg";
+
+            var params = new Object();
+            params.value1 = "test";
+            params.value2 = "param";
+
+            options.params = params;
+
+            var ft = new FileTransfer();
+            ft.upload(imageURI, "http://some.server.com/upload.php", win, fail, options);
+        }
+
+        function win(r) {
+            console.log("Code = " + r.responseCode);
+            console.log("Response = " + r.response);
+            console.log("Sent = " + r.bytesSent);
+        }
+
+        function fail(error) {
+            alert("An error has occurred: Code = " = error.code);
+            console.log("upload error source " + error.source);
+            console.log("upload error target " + error.target);
+        }
 
     </script>
 
@@ -132,32 +165,23 @@
     </head>
     <body>
         <div class="app">
-            <h1>Tweet Mirror V0.2</h1>
+            <h1>Tweet Mirror V0.3</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
             </div>
             
-            <a href="test.html" style="background:#FFCC33;color:#fff;padding:20px;margin:20px;">Clicky Here</a>
-            
+           <!-- <a href="test.html" style="background:#FFCC33;color:#fff;padding:20px;margin:20px;">Clicky Here</a>
+            -->
 			<button style="padding:20px;margin:20px;background:#ff00ae;color:#000000;font-size:2em;" onclick="capturePhoto();">Capture Photo</button> <br>
-			<button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
-			<button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
-			<button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+			
+			
+			
 			<img style="display:none;width:100px;height:100px;" id="smallImage" src="" />
 			<img style="display:none;" id="largeImage" src="" />
-			<form action="http://apps.crowdscreen.com/tweetmirror/upload.php" method="POST" name="tweetmirror" id="tweetmirror">
-				<input type="hidden" name="sending" value="sending" />
-				<input type="hidden" name="image" value="blank" />
-				<input type="hidden" name="sent" value="sent" />
-			</form>
         </div>
         
-        
-        <script>
-       
-        
-        </script>
+    
         
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
