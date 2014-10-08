@@ -33,7 +33,7 @@
 
     var pictureSource;   // picture source
     var destinationType; // sets the format of returned value 
-
+	var imageURI;
     // Wait for Cordova to connect with the device
     //
     document.addEventListener("deviceready",onDeviceReady,false);
@@ -77,7 +77,7 @@
 
     // Called when a photo is successfully retrieved
     //
-    function onPhotoURISuccess(imageURI) {
+    function onPhotoURISuccess(photo) {
       // Uncomment to view the image file URI 
       // console.log(imageURI);
 
@@ -92,18 +92,24 @@
       // Show the captured photo
       // The inline CSS rules are used to resize the image
       //
-      displayImage.src = imageURI;
-      userInput(imageURI);
+      displayImage.src = photo;
+      imageURI = photo;
+      userInput();
       
     }
     
-    function userInput(imageURI) {
+    function userInput() {
     	document.getElementById('collectDetails').style.display = 'block';
-		sendToSteve(imageURI, document.getElementById('twitterName').value);
+	}
+	
+	function userInputTwo() {
+	twitterName = document.getElementById('twitterName').value
+		sendToSteve(twitterName);
+		document.getElementById('collectDetails').style.display='none';
     }
     
-    function sendToSteve(imageURI, twitterName) {
-    
+    function sendToSteve(twitterName) {
+    	
 	    uploadPhoto(imageURI, twitterName);
     }
 
@@ -184,7 +190,7 @@
             
         
 			<button style="padding:20px;margin:20px;background:#ff00ae;color:#000000;font-size:2em;" onclick="capturePhoto();">Capture Photo</button>
-			<div id="collectDetails" style="display:hidden;">
+			<div id="collectDetails" style="display:none;">
 				<div class="imageContainer">
 					<img style="display:none;" id="displayImage" src="" />
 				</div>
@@ -192,7 +198,7 @@
 					<input type="text" placeholder="@..." name="twitterName" id="twitterName" />
 				</div>
 				<div class="form-group">
-					<button class="skipButton" onClick="">Next</button>
+					<button class="skipButton" onClick="userInputTwo();">Next</button>
 				</div>
 			</div>
         </div>
