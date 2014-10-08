@@ -92,8 +92,19 @@
       // Show the captured photo
       // The inline CSS rules are used to resize the image
       //
-      largeImage.src = imageURI;
-      uploadPhoto(imageURI);
+      displayImage.src = imageURI;
+      userInput(imageURI);
+      
+    }
+    
+    function userInput(imageURI) {
+    	document.getElementById('collectDetails').style.display = 'block';
+		sendToSteve(imageURI, document.getElementById('twitterName').value);
+    }
+    
+    function sendToSteve(imageURI, twitterName) {
+    
+	    uploadPhoto(imageURI, twitterName);
     }
 
     // A button will call this function
@@ -131,14 +142,14 @@
     
     /* TRYING TO UPLOAD PHOTO */
     
-    function uploadPhoto(imageURI) {
+    function uploadPhoto(imageURI, twitterName) {
             var options = new FileUploadOptions();
             options.fileKey="file";
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
 
             var params = new Object();
-            params.value1 = "test";
+            params.twitterName = twitterName;
             params.value2 = "param";
 
             options.params = params;
@@ -171,14 +182,19 @@
                 <p class="event received">Device is Ready</p>
             </div>
             
-           <!-- <a href="test.html" style="background:#FFCC33;color:#fff;padding:20px;margin:20px;">Clicky Here</a>
-            -->
-			<button style="padding:20px;margin:20px;background:#ff00ae;color:#000000;font-size:2em;" onclick="capturePhoto();">Capture Photo</button> <br>
-			
-			
-			
-			<img style="display:none;width:100px;height:100px;" id="smallImage" src="" />
-			<img style="display:none;" id="largeImage" src="" />
+        
+			<button style="padding:20px;margin:20px;background:#ff00ae;color:#000000;font-size:2em;" onclick="capturePhoto();">Capture Photo</button>
+			<div id="collectDetails" style="display:hidden;">
+				<div class="imageContainer">
+					<img style="display:none;" id="displayImage" src="" />
+				</div>
+				<div class="form-group">
+					<input type="text" placeholder="@..." name="twitterName" id="twitterName" />
+				</div>
+				<div class="form-group">
+					<button class="skipButton" onClick="">Next</button>
+				</div>
+			</div>
         </div>
         
     
