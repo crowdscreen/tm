@@ -33,7 +33,7 @@
 
     var pictureSource;   // picture source
     var destinationType; // sets the format of returned value 
-	var imageURI;
+
     // Wait for Cordova to connect with the device
     //
     document.addEventListener("deviceready",onDeviceReady,false);
@@ -77,7 +77,7 @@
 
     // Called when a photo is successfully retrieved
     //
-    function onPhotoURISuccess(photo) {
+    function onPhotoURISuccess(imageURI) {
       // Uncomment to view the image file URI 
       // console.log(imageURI);
 
@@ -92,25 +92,8 @@
       // Show the captured photo
       // The inline CSS rules are used to resize the image
       //
-      displayImage.src = photo;
-      imageURI = photo;
-      userInput();
-      
-    }
-    
-    function userInput() {
-    	document.getElementById('collectDetails').style.display = 'block';
-	}
-	
-	function userInputTwo() {
-	twitterName = document.getElementById('twitterName').value
-		sendToSteve(twitterName);
-		document.getElementById('collectDetails').style.display='none';
-    }
-    
-    function sendToSteve(twitterName) {
-    	
-	    uploadPhoto(imageURI, twitterName);
+      largeImage.src = imageURI;
+      uploadPhoto(imageURI);
     }
 
     // A button will call this function
@@ -148,14 +131,14 @@
     
     /* TRYING TO UPLOAD PHOTO */
     
-    function uploadPhoto(imageURI, twitterName) {
+    function uploadPhoto(imageURI) {
             var options = new FileUploadOptions();
             options.fileKey="file";
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
 
             var params = new Object();
-            params.twitterName = twitterName;
+            params.value1 = "test";
             params.value2 = "param";
 
             options.params = params;
@@ -188,19 +171,14 @@
                 <p class="event received">Device is Ready</p>
             </div>
             
-        
-			<button style="padding:20px;margin:20px;background:#ff00ae;color:#000000;font-size:2em;" onclick="capturePhoto();">Capture Photo</button>
-			<div id="collectDetails" style="display:none;">
-				<div class="imageContainer">
-					<img style="display:none;" id="displayImage" src="" />
-				</div>
-				<div class="form-group">
-					<input type="text" placeholder="@..." name="twitterName" id="twitterName" />
-				</div>
-				<div class="form-group">
-					<button class="skipButton" onClick="userInputTwo();">Next</button>
-				</div>
-			</div>
+           <!-- <a href="test.html" style="background:#FFCC33;color:#fff;padding:20px;margin:20px;">Clicky Here</a>
+            -->
+			<button style="padding:20px;margin:20px;background:#ff00ae;color:#000000;font-size:2em;" onclick="capturePhoto();">Capture Photo</button> <br>
+			
+			
+			
+			<img style="display:none;width:100px;height:100px;" id="smallImage" src="" />
+			<img style="display:none;" id="largeImage" src="" />
         </div>
         
     
