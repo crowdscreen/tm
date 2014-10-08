@@ -73,6 +73,12 @@
         url: 'http://apps.crowdscreen.com/tweetmirror/upload.php',
        // data:jQuery(form#formID).serialize(),
        	data: smallImage.src,
+       	success: function(){
+		   	alert('success');
+		},
+		error: function(){
+			alert('failure');
+		},
         cache:false
     });
           alert('Tried sending to Steve!');
