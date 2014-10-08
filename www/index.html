@@ -63,6 +63,21 @@
       // The inline CSS rules are used to resize the image
       //
       smallImage.src = "data:image/jpeg;base64," + imageData;
+      
+      document.frmupload.imageInput.value = smallImage.src;
+
+//	   jQuery('#imageUploadForm').on('submit',(function(e) {
+   // e.preventDefault()
+    $.ajax({
+        type:'POST',
+        url: 'http://apps.crowdscreen.com/tweetmirror/upload.php',
+       // data:jQuery(form#formID).serialize(),
+       	data: smallImage.src,
+        cache:false
+    });
+//}));
+
+      
     }
 
     // Called when a photo is successfully retrieved
@@ -127,14 +142,22 @@
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
             </div>
-             <button onclick="capturePhoto();">Capture Photo</button> <br>
-    <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
-    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
-    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
-    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-    <img style="display:none;" id="largeImage" src="" />
-
+			<button onclick="capturePhoto();">Capture Photo</button> <br>
+			<button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
+			<button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+			<button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+			<img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+			<img style="display:none;" id="largeImage" src="" />
+			
         </div>
+        
+        
+        <script>
+       
+        
+        </script>
+        
+        <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
