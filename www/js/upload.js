@@ -116,6 +116,7 @@
         }
 
         function win(r) {
+        	alert("Uploaded!");
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
