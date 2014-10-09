@@ -96,7 +96,9 @@
     }
     
     
-    
+    function testFunction(hello) {
+	    alert('Test Success ' + hello);
+    }
     /* TRYING TO UPLOAD PHOTO */
     
     function uploadPhoto(imageURI) {
